@@ -21,7 +21,9 @@ mongoose.connection.on("error", (error) => {
 });
 
 app.get("/", (request, response) => {
-  response.send("Hi, there! This server is built with mongoDB and Express");
+  response.send(
+    "Hi, there! This server is one that is built with mongoDB and Express"
+  );
 });
 
 app.listen(3000, () => {
