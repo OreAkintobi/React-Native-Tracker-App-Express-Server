@@ -1,9 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 const authRoutes = require("./routes/authRoutes");
 
 const app = express();
 
+app.use(bodyParser.json());
 app.use(authRoutes);
 
 const mongoUri =
@@ -23,8 +25,8 @@ mongoose.connection.on("error", (error) => {
   console.error("Error connecting to mongo", error);
 });
 
-app.get("/", (request, response) => {
-  response.send(
+app.get("/", (req, res) => {
+  res.send(
     "Hi, there! This server is one that is built with mongoDB and Express"
   );
 });
