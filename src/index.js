@@ -4,6 +4,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const authRoutes = require("./routes/authRoutes");
+const requireAuth = require("./middlewares/requireAuth");
 
 const app = express();
 
@@ -27,10 +28,8 @@ mongoose.connection.on("error", (error) => {
   console.error("Error connecting to mongo", error);
 });
 
-app.get("/", (req, res) => {
-  res.send(
-    "Hi, there! This server is one that is built with mongoDB and Express"
-  );
+app.get("/", requireAuth, (req, res) => {
+  res.send(`Your email is ${req.user.email}`);
 });
 
 app.listen(3000, () => {
