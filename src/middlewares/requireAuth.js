@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const User = mongoose.model("User");
+const SECRET_KEY = "MY SECRET KEY";
 
 module.exports = (req, res, next) => {
   const { authorization } = req.headers;
@@ -12,7 +13,7 @@ module.exports = (req, res, next) => {
   }
 
   const token = authorization.replace("Bearer ", "");
-  jwt.verify(token, "MY SECRET KEY", async (err, payload) => {
+  jwt.verify(token, SECRET_KEY, async (err, payload) => {
     if (err) {
       return res.status(401).send({ error: "You must be logged in." });
     }
